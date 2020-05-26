@@ -1,0 +1,13 @@
+name: 'IntelliJ Inspections'
+description: 'Runs IntelliJ Inspections on a PR'
+author: 'Gopal Sharma <gps@surya-soft.com>'
+inputs:
+  GH_TOKEN:
+    description: GitHub Token used to comment on PR
+    required: True
+  INSPECTIONS_FILE:
+    description: Path to inspections file relative to root of project directory
+    required: True
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
