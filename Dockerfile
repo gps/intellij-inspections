@@ -1,4 +1,4 @@
-FROM gopalkrishnaps/intellij:2020.3
+FROM gopalkrishnaps/intellij:2020.3.1
 
 WORKDIR /opt
 
