@@ -8,6 +8,9 @@ inputs:
   INSPECTIONS_FILE:
     description: Path to inspections file relative to root of project directory
     required: True
+  IGNORE_FILE_PATTERN:
+    description: Regular expression for the files to be ignored.
+    required: False
 runs:
   using: 'docker'
   image: 'Dockerfile'

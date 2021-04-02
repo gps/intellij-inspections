@@ -12,7 +12,8 @@ import unidiff
 import xml.etree.ElementTree as ET
 
 FILE_EXTENSIONS_TO_CONSIDER = [".kt", ".java", ".kts"]
-
+regexes = os.environ.get("INPUT_IGNORE_FILE_PATTERN",["regex not specified"])
+regexes_combined = "|".join(regexes)
 
 def stderr(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
@@ -73,6 +74,9 @@ def analyze_file(path):
         file_name = problem.find("file").text
         _, file_ext = os.path.splitext(file_name)
         if file_ext.lower() not in FILE_EXTENSIONS_TO_CONSIDER:
+            continue
+        if(re.match(regexes_combined,file_name)):
+            print("Inspection results for file ignored:",file_name)
             continue
         line_no = int(problem.find("line").text)
         error_level = problem.find("problem_class").get("severity")
