@@ -12,8 +12,8 @@ import unidiff
 import xml.etree.ElementTree as ET
 
 FILE_EXTENSIONS_TO_CONSIDER = [".kt", ".java", ".kts"]
-regexes = os.environ.get("INPUT_IGNORE_FILE_PATTERN",["regex not specified"])
-regexes_combined = "|".join(regexes)
+regexes = os.environ.get("INPUT_IGNORE_FILE_PATTERN","NoRegexSpecified")
+regexes_combined = regexes.replace(" ","|")
 
 def stderr(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
