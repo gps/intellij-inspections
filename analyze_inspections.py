@@ -2,6 +2,7 @@
 
 import argparse
 import functools
+import io
 import json
 import os
 import re
@@ -62,7 +63,7 @@ def assert_200_response(res, msg):
 
 def analyze_file(path):
     diagnostics = []
-    with open(path) as fin:
+    with io.open(path, encoding="utf-8") as fin:
         text = fin.read()
     text = text.replace('<?xml version="1.0" encoding="UTF-8"?>', "")
     text = text.replace("file://$PROJECT_DIR$/", "")
