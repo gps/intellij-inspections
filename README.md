@@ -18,7 +18,7 @@ Path to inspections file relative to root of project directory.
 
 ### `ignore_file_pattern`
 
-A string of space-separated regular expressions of files whose inspection results are to be ignored.
+A list of regular expressions for files whose inspection results are to be ignored.
 
 **Optional**
 
@@ -30,6 +30,10 @@ A string of space-separated regular expressions of files whose inspection result
   with:
     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     INSPECTIONS_FILE: Inspections.xml
-    IGNORE_FILE_PATTERN: .*src/generated.* .*basedb/src.*
+    IGNORE_FILE_PATTERN: |
+    [
+      ".*src/generated.*",
+      ".*basedb/src.*"
+    ]
 
 ```

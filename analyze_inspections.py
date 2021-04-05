@@ -13,7 +13,9 @@ import xml.etree.ElementTree as ET
 
 FILE_EXTENSIONS_TO_CONSIDER = [".kt", ".java", ".kts"]
 regexes = os.environ.get("INPUT_IGNORE_FILE_PATTERN","NoRegexSpecified")
-regexes_combined = regexes.replace(" ","|")
+regexes_list = json.loads(regexes)
+regexes_combined = "|"
+regexes_combined = regexes_combined.join(regexes_list)
 
 def stderr(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
