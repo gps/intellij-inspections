@@ -77,8 +77,7 @@ def analyze_file(path):
         _, file_ext = os.path.splitext(file_name)
         if file_ext.lower() not in FILE_EXTENSIONS_TO_CONSIDER:
             continue
-        if(re.match(regexes_combined,file_name)):
-            print("Inspection results for file ignored:",file_name)
+        if(check_file_name_for_regex_patterns(file_name)):
             continue
         line_no = int(problem.find("line").text)
         error_level = problem.find("problem_class").get("severity")
@@ -182,6 +181,21 @@ def print_report(diagnostics):
         print("Line:", diagnostic.line_number)
         print("Error:", diagnostic.description)
 
+def load_ignore_files_patterns():
+    global regexes_list
+    regexes = os.environ.get("INPUT_IGNORE_FILE_PATTERNS")
+    if not (regexes is None):
+        regexes_list = json.loads(regexes)
+    else:
+        regexes_list = None
+
+def check_file_name_for_regex_patterns(file_name):
+    if not (regexes_list is None):
+        for regex in regexes_list:
+            if(re.match(regex,file_name)):
+                print("Inspection results for file ignored:",file_name)
+                return True
+    return False
 
 def main():
     parser = argparse.ArgumentParser("Analyzes IntelliJ Inspections")
@@ -196,6 +210,8 @@ def main():
         for f in os.listdir(ins)
         if f.endswith(".xml") and not f.startswith(".")
     ]
+
+    load_ignore_files_patterns()
 
     diagnostics = []
 
