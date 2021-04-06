@@ -16,7 +16,7 @@ FILE_EXTENSIONS_TO_CONSIDER = [".kt", ".java", ".kts"]
 def load_ignore_files_patterns():
     ignore_files_patterns = []
     regexes = os.environ.get("INPUT_IGNORE_FILE_PATTERNS")
-    if not (regexes is None):
+    if regexes is not None:
         ignore_files_patterns = json.loads(regexes)
     return ignore_files_patterns
 
@@ -188,7 +188,7 @@ def print_report(diagnostics):
 
 def check_file_name_for_regex_patterns(file_name):
     for regex in ignore_files_patterns:
-        if(re.match(regex,file_name)):
+        if re.match(regex,file_name):
             print("Inspection results for file ignored:",file_name)
             return True
     return False
