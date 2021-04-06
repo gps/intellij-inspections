@@ -16,6 +16,8 @@ FILE_EXTENSIONS_TO_CONSIDER = [".kt", ".java", ".kts"]
 def load_ignore_files_patterns():
     ignore_files_patterns = []
     regexes = os.environ.get("INPUT_IGNORE_FILE_PATTERNS")
+    print("regex:",regexes)
+    print(type(regexes))
     if regexes is not None:
         ignore_files_patterns = json.loads(regexes)
     return ignore_files_patterns
