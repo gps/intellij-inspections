@@ -13,6 +13,14 @@ import xml.etree.ElementTree as ET
 
 FILE_EXTENSIONS_TO_CONSIDER = [".kt", ".java", ".kts"]
 
+def load_ignore_files_patterns():
+    ignore_files_patterns = []
+    regexes = os.environ.get("INPUT_IGNORE_FILE_PATTERNS")
+    if regexes is not None:
+        ignore_files_patterns = json.loads(regexes)
+    return ignore_files_patterns
+
+ignore_files_patterns = load_ignore_files_patterns()
 
 def stderr(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
@@ -73,6 +81,8 @@ def analyze_file(path):
         file_name = problem.find("file").text
         _, file_ext = os.path.splitext(file_name)
         if file_ext.lower() not in FILE_EXTENSIONS_TO_CONSIDER:
+            continue
+        if(check_file_name_for_regex_patterns(file_name)):
             continue
         line_no = int(problem.find("line").text)
         error_level = problem.find("problem_class").get("severity")
@@ -176,6 +186,12 @@ def print_report(diagnostics):
         print("Line:", diagnostic.line_number)
         print("Error:", diagnostic.description)
 
+def check_file_name_for_regex_patterns(file_name):
+    for regex in ignore_files_patterns:
+        if re.match(regex,file_name):
+            print("Inspection results for file ignored:",file_name)
+            return True
+    return False
 
 def main():
     parser = argparse.ArgumentParser("Analyzes IntelliJ Inspections")

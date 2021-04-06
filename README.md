@@ -16,6 +16,12 @@ Path to inspections file relative to root of project directory.
 
 **Required**
 
+### `ignore_file_patterns`
+
+A list of regular expressions for files whose inspection results are to be ignored.
+
+**Optional**
+
 ## Example Usage
 
 ```yml
@@ -24,5 +30,10 @@ Path to inspections file relative to root of project directory.
   with:
     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     INSPECTIONS_FILE: Inspections.xml
+    IGNORE_FILE_PATTERNS: |
+    [
+      ".*src/generated.*",
+      ".*basedb/src.*"
+    ]
 
 ```
