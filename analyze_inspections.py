@@ -15,18 +15,12 @@ FILE_EXTENSIONS_TO_CONSIDER = [".kt", ".java", ".kts"]
 
 def load_ignore_files_patterns():
     regexes = os.environ.get("INPUT_IGNORE_FILE_PATTERNS")
-    print("regex:",regexes)
-    print(type(regexes))
     if regexes:
-        print("regex true")
         return json.loads(regexes)
     else:
-        print("regex false")
         return []
 
 ignore_files_patterns = load_ignore_files_patterns()
-print(ignore_files_patterns)
-print(type(ignore_files_patterns))
 
 def stderr(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
