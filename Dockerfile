@@ -1,6 +1,5 @@
 FROM gopalkrishnaps/intellij:2021.1.3
 
-WORKDIR /opt
 
 COPY entrypoint.sh /entrypoint.sh
 COPY requirements.txt /requirements.txt
