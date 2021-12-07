@@ -1,4 +1,4 @@
-FROM gopalkrishnaps/intellij:2021.3
+FROM gopalkrishnaps/intellij:2021.2.3
 
 
 COPY entrypoint.sh /entrypoint.sh
